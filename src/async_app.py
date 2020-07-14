@@ -1,6 +1,6 @@
 import aiohttp
 import asyncio
-import requests
+import concurrent
 
 import io_bound
 import cpu_bound
@@ -13,19 +13,19 @@ app = Quart(__name__)
 async def async_endpoint():
     concurrent_io_tasks = []
 
-    for i in range(0,3):
+    for i in range(0, 3):
         task = io_bound.aio_call(app.aiohttp_session)
         concurrent_io_tasks.append(task)
 
     results = await asyncio.gather(*concurrent_io_tasks)
 
-    # await cpu_bound.aio_cpu()
+    cpu_bound.cpu(1000000)
     return results[0]
 
 
 @app.route('/sync')
 def sync():
-    for i in range(0,3):
+    for i in range(0, 3):
         res = io_bound.io_call()
     
     return res 
