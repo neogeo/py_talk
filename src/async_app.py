@@ -19,7 +19,7 @@ async def async_endpoint():
 
     results = await asyncio.gather(*concurrent_io_tasks)
 
-    cpu_bound.cpu(1000000)
+    # cpu_bound.cpu(1000000)
     return results[0]
 
 
