@@ -2,12 +2,63 @@ start server
 start locust
 open locust page with test ready for sync
 
+start pycharm 
+load entire file into terminal
+
 http://127.0.0.1:8089
 
 http://localhost:5000/sync
 http://localhost:5000/async
 
+Goal is async right for you?
 
+DEMO
+	3 calls to aws
+	simple server
+
+LOCUST
+	users, overload, note median times
+	1 worker
+
+WHY
+	we get used to things takinga a certain amount of time (growth in CPU, RAM, neetwork speeds)
+	mutex lock
+	were comfortable making taking this hit,
+	cpu time wasted
+
+LOCUST
+	RPS higher, median time lower
+	same equipment, no hardware change
+	scale the old way, but you cant get that median time down
+
+HITS
+	more hits, larger docs
+
+FIRE
+	ES can handle way more connections, utilize memory way more effiecnetly, can use all cores
+	remove compelixty
+	other services ( azure, s3, )
+	more calls async for s3
+
+Concurrency
+	y is a property which more than one operation can be run simultaneously but it doesn’t mean it will be
+	run simultaneously
+	doesn't python have multi-threading
+
+GIL
+	no garbage collection (generational collection), referece counting
+	keeps running code fast (java has per object locks)
+	lock unlock picture
+	CPU cost of aquire mutex
+	python 4 might get rid of it
+
+	PICTURE
+		Threads provide no benefit for CPU intensive tasks because of the GIL
+		CPU intensive will starve threads (don't see much multi-threaded, its ocnfusing and sometimes slower)
+		the GIL keeps single threaded fast, CPU intestive a probelem anyway, is there a way in python to acheive good prefromance for io and avoid the GIL
+
+
+CODE EXAMPLE
 fun
 fun(10)
 gen
@@ -24,3 +75,11 @@ loop = asyncio.get_event_loop()
 run_async()
 
 asyncio.run(aio_func())
+
+
+
+PITFALLS
+	CPU bound block
+		example
+		run thread pool
+		run in process pool
